@@ -1,17 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="javascripts/simpleCart.min.js"></script>
+  <script type="text/javascript" src="javascripts/home.js"></script>
     <title><%= name %></title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style type="text/css">
-    a{margin-left: 20px; text-decoration: none;}
-    a:hover{text-decoration: underline;}
-    </style>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
   </head>
   <body>
-  <h1>Your name:   <%= name %></h1>
-    <p>Welcome to your home ~</p>
-    <p><a href="/logout">我要注销 </a>
-    </p>
+
+  <!--头导航栏-->
+  <div class="haeader">
+    <div class="container">
+      <div class="login-bars">
+        <a class="btn btn-default log-bar-btn" href="login" role="button" id="home_login"><%= name %></a>
+        <a class="btn btn-default log-bar-btn" href="register" role="button" id="home_register"><%= item %></a>
+        <div class="cart box_1a">
+          <a href="checkout">
+            <h3>
+              <div class="total_cart">
+                <span class="simpleCart_total"></span> ( <span id="simpleCart_quantity" class="simpleCart_quantity"></span> ) 
+              </div>
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div class="content" >
+  <!--右边图标-->
+  <div class="mainbar" id="responsediv"></div>
+  <!--左边导航栏-->
+  <div class="sidebar" id="sidediv">
+    <!--颜色版-->
+    <div class="refinement Colour">
+      <h3 class="toggle">
+        <span>
+        Colour 
+        </span>
+      </h3>
+      <ul class="clearfix swatches Colour" style="display: block;">
+        <li class="swatch-black">
+          <a class="tooltip" title="Black">Black</a>
+        </li>
+        <li class="swatch-blue">
+          <a class="tooltip" title="Blue">Blue</a>
+        </li>
+        <li class="swatch-green">
+          <a class="tooltip" title="Green">Green</a>
+        </li>
+      </ul>
+      <p><a href="/logout">我要注销 </a></p>
+    </div>
+  </div>
+  </div>
+
   </body>
 </html>

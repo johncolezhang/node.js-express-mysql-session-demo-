@@ -7,21 +7,22 @@ $(function(){
         var password = $("#password").val();
         var password1 = $("#password1").val();
         if(password !== password1){ 
-            $("#password").css("border","1px solid red");
+            $("#password").css("border","1px solid red");//显示红框
             $("#password1").css("border","1px solid red");
         }else if(password === password1){
-        var data = {"uname":username,"upwd":password};
+        var signupdata = {"uname":username,"upwd":password};
         $.ajax({ 
-            url: '/register',
+            url: '/registerhandle',
             type: 'post',
-            data: data,
-            success: function(data,status){ 
-                if(status == 'success'){ 
+            data: signupdata,
+            success: function(data){
+                //alert(data);
+                if(data != false){ 
+                    alert('注册成功:' + data);
                     location.href = 'login';
+                }else{
+                    alert('注册失败');
                 }
-            },
-            error: function(data,err){ 
-                    location.href = 'register';
             }
         }); 
     }

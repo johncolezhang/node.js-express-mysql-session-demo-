@@ -19,7 +19,7 @@ var app = express();
 //set session
 app.use(session({
 	secret: 'secret',
-	cookie: {maxAge: 1000*60*30}
+	cookie: {maxAge: 1000*60*30}//session30分钟长度
 }));
 
 /*

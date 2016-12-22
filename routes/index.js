@@ -25,25 +25,23 @@ router.get('/register', function(req, res, next){
 	res.render('register', {title: '注册'});
 });
 
+router.post('/registerhandle', function(req, res, next){
+	userDao.register(req, res, next);
+});
+
 router.get('/home', function(req, res, next){
-	var ujson = {"name" : "zq"} ;
+	var ujson = {"name" : "Log In" , "item" : "Sign Up"} ;
 	console.log(req.session);
 	if (req.session.sign) {
-	res.render('home', {"name" : req.session.name});
+	res.render('home', {"name" : req.session.name , "item" : "Change Password"});
 	}else{
 		res.render('home', ujson);
 	}
-})
+});
 
-router.get('/sess', function(req, res){
-	if (req.session.sign) {//检查用户是否已经登录
-		console.log(req.session);//打印session的值
-		res.send('welecome <strong>' + req.session.name + '</strong>, 欢迎你再次登录');
-	} else {//否则展示index页面
-		req.session.sign = true;
-		req.session.name = '汇智网';
-		res.end('欢迎登陆！');
-	}
+router.get('/producthandle', function(req, res, next) {
+	//console.log(2);
+	userDao.selectProduct(req, res, next);
 });
 
 module.exports = router;

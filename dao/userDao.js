@@ -20,85 +20,6 @@ var jsonWrite = function (res, ret) {
   }
 };
 module.exports = {
-  add: function (req, res, next) {
-    pool.getConnection(function(err, connection) {
-      // 获取前台页面传过来的参数
-      var param = req.query || req.params;
-      // 建立连接，向表中插入值
-      // 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
-      connection.query($sql.insert, [param.name, param.age], function(err, result) {
-        if(result) {
-          result = {
-            code: 200,
-            msg:'增加成功'
-          };    
-        }
-        // 以json形式，把操作结果返回给前台页面
-        jsonWrite(res, result);
-        // 释放连接 
-        connection.release();
-      });
-    });
-  },
-  delete: function (req, res, next) {
-    // delete by Id
-    pool.getConnection(function(err, connection) {
-      var id = +req.query.id;
-      connection.query($sql.delete, id, function(err, result) {
-        if(result.affectedRows > 0) {
-          result = {
-            'code': 200,
-            'msg':'删除成功'
-          };
-        } else {
-          result = void 0;
-        }
-        jsonWrite(res, result);
-        connection.release();
-      });
-    });
-  },
-  update: function (req, res, next) {
-    // update by id
-    // 为了简单，要求同时传name和age两个参数
-    var param = req.body;
-    if(param.name == null || param.age == null || param.id == null) {
-      jsonWrite(res, undefined);
-      return;
-    }
-    pool.getConnection(function(err, connection) {
-      connection.query($sql.update, [param.name, param.age, +param.id], function(err, result) {
-        // 使用页面进行跳转提示
-        if(result.affectedRows > 0) {
-          res.render('suc', {
-            result: result
-          }); // 第二个参数可以直接在jade中使用
-        } else {
-          res.render('fail',  {
-            result: result
-          });
-        }
-        connection.release();
-      });
-    });
-  },
-  queryById: function (req, res, next) {
-    var id = +req.query.id; // 为了拼凑正确的sql语句，这里要转下整数
-    pool.getConnection(function(err, connection) {
-      connection.query($sql.queryById, id, function(err, result) {
-        jsonWrite(res, result);
-        connection.release();
-      });
-    });
-  },
-  queryAll: function (req, res, next) {
-    pool.getConnection(function(err, connection) {
-      connection.query($sql.queryAll, function(err, result) {
-        jsonWrite(res, result);
-        connection.release();
-      });
-    });
-  },
   selectUser: function (req, res, next) {
     //console.log(req);
     var param = req.body;
@@ -111,7 +32,6 @@ module.exports = {
     pool.getConnection(function(err, connection) {
         connection.query($sql.selectuser, [param.uname, param.upwd],function(err, result) {
           //var ujson = res.json(result);
-          
           if(result[0] != null) {
             console.log(result[0].user);
             console.log("查询成功");
@@ -126,6 +46,53 @@ module.exports = {
         //jsonWrite(res, result);
         connection.release();
       });
-    })
+    });
+  },
+
+  register: function (req, res, next) {
+    var param = req.body;
+    var bool = 0;
+    console.log(param.uname + " " + param.upwd);
+    if(param.uname == "" || param.upwd == ""){
+      jsonWrite(res, undefined);
+      console.log("没有输入参数");
+      return;
+    }
+    //检查是否已注册
+    pool.getConnection(function(err, connection) {
+      connection.query($sql.existuser, param.uname, function(err, result) {
+        console.log(result);
+        if(result == null){
+          res.json(false);
+        }else{
+          connection.query($sql.signupuser, [param.uname, param.upwd], function(err1, result1) {
+            console.log(result1);
+            res.json(param.uname);
+          });
+        }
+      });
+    });
+  },
+
+  selectProduct: function (req, res, next) {
+    //console.log(1);
+    pool.getConnection( function(err, connection) {
+        connection.query($sql.selectproduct, function(err, result) {
+          console.log(result.length);
+          //加载div
+          var html = "<div class='content-top'><h1>Recent Products</h1><div class='content-top1'>";
+          for(var i = 0; i < result.length; i++){
+            html += "<div class='col-md-3 col-md2'><div class='col-md1 simpleCart_shelfItem'><a href='single'><img class='img-responsive' src=";
+            html += "'" + result[i].product_path + "'";
+            html += " alt='' /></a><h3><a href='single'>Tops</a></h3><div class='price'><h5 class='item_price'>$300</h5><a href='#' class='item_add'>Add To Cart</a><div class='clearfix'> </div></div></div></div>";
+          }
+          html += "<div class='clearfix'></div></div>";
+          console.log(html);
+          console.log(result[0]);
+          console.log(result[1]);
+          console.log(result[2]);
+          res.json(JSON.stringify(html));
+        });
+    });
   }
 };
