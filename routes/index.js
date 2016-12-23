@@ -8,8 +8,12 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: '主页' });
 });
 
-router.get('/login', function(req, res, next){
+router.get('/login', function(req, res, next) {
 	res.render('login', {title: ' 登录'});
+});
+
+router.get('/list', function(req, res, next){
+	res.render('list', {name: '购物车'});
 });
 
 router.post('/loginhandle', function(req, res, next){

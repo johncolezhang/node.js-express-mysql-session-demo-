@@ -80,18 +80,22 @@ module.exports = {
         connection.query($sql.selectproduct, function(err, result) {
           console.log(result.length);
           //加载div
-          var html = "<div class='content-top'><h1>Recent Products</h1><div class='content-top1'>";
+          var html = "<div class='content-top'><div class='content-top1'>";
           for(var i = 0; i < result.length; i++){
-            html += "<div class='col-md-3 col-md2'><div class='col-md1 simpleCart_shelfItem'><a href='single'><img class='img-responsive' src=";
+            html += "<div class='col-md-3 col-md2'><div class='col-md1 simpleCart_shelfItem'><a href='#'><img class='img-responsive' src=";
             html += "'" + result[i].product_path + "'";
-            html += " alt='' /></a><h3><a href='single'>Tops</a></h3><div class='price'><h5 class='item_price'>$300</h5><a href='#' class='item_add'>Add To Cart</a><div class='clearfix'> </div></div></div></div>";
+            html += " alt='' /></a><h3 class='item_id item_name'><a href='#'>";
+            html += result[i].product_name;
+            html += "</a></h3><div class='price'><h5 class='item_price'>";
+            html += "$" + result[i].product_price;
+            html += "</h5><a href='#' class='item_add'>Add To Cart</a><div class='clearfix'> </div></div></div></div>";
           }
           html += "<div class='clearfix'></div></div>";
           console.log(html);
           console.log(result[0]);
           console.log(result[1]);
           console.log(result[2]);
-          res.json(JSON.stringify(html));
+          res.json(html);
         });
     });
   }
