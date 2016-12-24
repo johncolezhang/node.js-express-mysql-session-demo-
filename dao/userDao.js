@@ -7,6 +7,8 @@ var session = require('express-session');
 // 使用连接池，提升性能
 var pool  = mysql.createPool($conf.mysql);
 
+var allList = [];//用来记录所有货物
+
 // 向前台返回JSON方法的简单封装
 var jsonWrite = function (res, ret) {
   //console.log("第一次res");
@@ -31,7 +33,6 @@ module.exports = {
     }
     pool.getConnection(function(err, connection) {
         connection.query($sql.selectuser, [param.uname, param.upwd],function(err, result) {
-          //var ujson = res.json(result);
           if(result[0] != null) {
             console.log(result[0].user);
             console.log("查询成功");
@@ -70,6 +71,7 @@ module.exports = {
             res.json(param.uname);
           });
         }
+      connection.release();
       });
     });
   },
@@ -78,10 +80,12 @@ module.exports = {
     //console.log(1);
     pool.getConnection( function(err, connection) {
         connection.query($sql.selectproduct, function(err, result) {
-          console.log(result.length);
+          /*console.log(result.length);
+          console.log(result);
           //加载div
           var html = "<div class='content-top'><div class='content-top1'>";
           for(var i = 0; i < result.length; i++){
+            //处理显示所有的货物的html
             html += "<div class='col-md-3 col-md2'><div class='col-md1 simpleCart_shelfItem'><a href='#'><img class='img-responsive' src=";
             html += "'" + result[i].product_path + "'";
             html += " alt='' /></a><h3 class='item_id item_name'><a href='#'>";
@@ -89,14 +93,28 @@ module.exports = {
             html += "</a></h3><div class='price'><h5 class='item_price'>";
             html += "$" + result[i].product_price;
             html += "</h5><a href='#' class='item_add'>Add To Cart</a><div class='clearfix'> </div></div></div></div>";
+            //记录所有的货物
           }
           html += "<div class='clearfix'></div></div>";
+
+          
+
           console.log(html);
           console.log(result[0]);
           console.log(result[1]);
-          console.log(result[2]);
-          res.json(html);
+          console.log(result[2]);*/
+          console.log("哈哈哈哈");
+          res.json(result);
+          connection.release();
         });
+    });
+  },
+
+  list: function (req, res, next) {
+    pool.getConnection( function(err, connection) {
+      connection.query($sql.selectproduct, function(err, result) {
+
+      });
     });
   }
 };

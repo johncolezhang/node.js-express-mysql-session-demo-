@@ -12,8 +12,18 @@ router.get('/login', function(req, res, next) {
 	res.render('login', {title: ' 登录'});
 });
 
+router.get('listhandle', function(req, res, next) {
+	userDao.list(req, res, next);
+});
+
 router.get('/list', function(req, res, next){
-	res.render('list', {name: '购物车'});
+	var ujson = {"name" : "Log In" , "item" : "Sign Up"} ;
+	console.log(req.session);
+	if (req.session.sign) {
+	res.render('list', {"name" : req.session.name , "item" : "Change Password"});
+	}else{
+		res.render('list', ujson);
+	}
 });
 
 router.post('/loginhandle', function(req, res, next){
@@ -44,7 +54,7 @@ router.get('/home', function(req, res, next){
 });
 
 router.get('/producthandle', function(req, res, next) {
-	//console.log(2);
+	console.log(2);
 	userDao.selectProduct(req, res, next);
 });
 

@@ -11,17 +11,28 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
   </head>
   <body>
-  <div class="check-out">
-    <h1>购物车</h1>
-    <tr>
-      <th>物品</th>
-      <th>数量</th>
-      <th>单价</th>
-      <th>属性</th>
-      <th>总价</th>
-      <th>
-    </tr>
-    <div class="simpleCart_items"></div>
+  <!--头导航栏-->
+  <div class="header">
+    <div class="container">
+      <div class="login-bars">
+        <a class="btn btn-default log-bar-btn" href="login" role="button" id="home_login"><%= name %></a>
+        <a class="btn btn-default log-bar-btn" href="register" role="button" id="home_register"><%= item %></a>
+        <div class="cart box_1a">
+          <a href="list">
+            <h3>
+              <div class="total_cart">
+                <span class="simpleCart_total"></span> ( <span id="simpleCart_quantity" class="simpleCart_quantity"></span> ) 
+              </div>
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="simpleCart_items"></div>
+  <a href="home">主页</a>
+  <div class="simpleCart_total"></div>
+  <div class="simpleCart_quantity"></div>
   </body>
 </html>
