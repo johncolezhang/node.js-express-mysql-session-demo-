@@ -13,9 +13,9 @@ $(function() {
             var productjson = "{'name':'" + data[i].product_name + "', 'price':'" + data[i].product_price + "'}";
             //alert(productjson);
             list.push(productjson);
-            html += "<div class='col-md-3 col-md2'><div class='col-md1 simpleCart_shelfItem'><a href='#'><img class='img-responsive' src=";
+            html += "<div class='col-md-3 col-md2'><div class='col-md1 simpleCart_shelfItem'><a href='#'><div class='item_image'><img class='img-responsive' src=";
             html += "'" + data[i].product_path + "'";
-            html += " alt='' /></a><h3 class='item_id item_name'><a href='#'>";
+            html += " alt='' /></div></a><h3 class='item_id item_name'><a href='#'>";
             html += data[i].product_name;
             html += "</a></h3><div class='price'><h5 class='item_price'>";
             html += "$" + data[i].product_price;
@@ -23,20 +23,24 @@ $(function() {
             //记录所有的货物
           }
           html += "<div class='clearfix'></div></div>";
-          alert("1" + list);
+          //alert("1" + list);
        		$("#responsediv").html(html);      
         }
      });
   
   //alert("2" + list);
 });
-/*simpleCart({
-  cartColumns:[
-      {attr : "image", label : "图片展示", view : "image"},
-      {attr : "name", label : "商品名称"},
+
+simpleCart({
+  cartColumns : [
+      {attr : "name", label : "名称"},
+      {attr : "iamge", label : "图片"},
+      {view : "increment", label : false},
       {attr : "quantity", label : "数量"},
-      {attr : "remove", label : "操作", text : "移除"},
-      {attr : "price", label : "单价"},
+      {view : "decrement", label : false},
+      {view : "remove", text : "移除", label : false},
+      {attr : "price", label : "单价", view : "currency"},
       {attr : "total", label : "总价", view : "currency"}
-  ]
-});*/
+  ],
+  cartStyle: "table"
+});
