@@ -384,6 +384,7 @@
 				},
 
 				init: function () {
+					//simpleCart.empty();//先清空
 					if(typeof Cookies.get("name") === "undefined"){//未登录
 						//alert("未登录");
 						simpleCart.load();
@@ -448,13 +449,26 @@
 					return items;
 				},
 
+				savemongo: function () {
+					var cartlist = simpleCart.sendlist();
+					//for(var i = 0; i < cartlist.length; i++){
+					$.ajax({
+						url: '/savelist',
+						type: 'post',
+						data: cartlist,
+						success: function(data){
+							//alert(data);
+						}
+					});
+				},
+
 				//send cart list to mongo
 				sendlist: function() {
 					var data = {
 						total : simpleCart.total(),
 						quantity : simpleCart.quantity()
 					};
-					var counter;
+					var counter = 0;
 					simpleCart.each(function(item, x) {
 						counter = x + 1;
 						data['item_name_' + counter] = item.get("name");
@@ -483,7 +497,6 @@
 				},
 
 				load: function () {
-
 					// empty without the update
 					sc_items = {};
 
@@ -511,7 +524,7 @@
 				},
 
 				loaddb: function() {
-					simpleCart.empty();//empty first
+					//simpleCart.empty();//empty first
 					var _id = Cookies.get("name");
 					$.ajax({
 						url : "/cartinfo",
@@ -538,6 +551,7 @@
 								items.push(content);
 							}
 							//alert(JSON.stringify(items));
+							simpleCart.empty();//不加此句会购物车加倍
 							try {
 								simpleCart.each(items, function (item) {
 								simpleCart.add(item, true);
@@ -545,8 +559,10 @@
 							} catch (e){
 								simpleCart.error( "Error Loading data: " + e );
 							}
+							//alert(JSON.stringify(simpleCart.showlist()));
 						}
 					});
+					
 				},
 
 				// ready function used as a shortcut for bind('ready',fn)
@@ -1805,6 +1821,7 @@
 						, event: 'click'
 						, callback: function () {
 							simpleCart.empty();
+							simpleCart.savemongo();
 						}
 					}
 					, {	  selector: 'increment'
@@ -1812,6 +1829,7 @@
 						, callback: function () {
 							simpleCart.find(simpleCart.$(this).closest('.itemRow').attr('id').split("_")[1]).increment();
 							simpleCart.update();
+							simpleCart.savemongo();
 						}
 					}
 					, {	  selector: 'decrement'
@@ -1819,6 +1837,7 @@
 						, callback: function () {
 							simpleCart.find(simpleCart.$(this).closest('.itemRow').attr('id').split("_")[1]).decrement();
 							simpleCart.update();
+							simpleCart.savemongo();
 						}
 					}
 					/* remove from cart */
@@ -1826,6 +1845,7 @@
 						, event: 'click'
 						, callback: function () {
 							simpleCart.find(simpleCart.$(this).closest('.itemRow').attr('id').split("_")[1]).remove();
+							simpleCart.savemongo();
 						}
 					}
 
@@ -1897,16 +1917,18 @@
 								}
 							});
 
-							//alert(JSON.stringify(fields));
+							
 							// add the item
 							simpleCart.add(fields);
+							
+							//save to mongo
+							simpleCart.savemongo();
 
 							//show all list
 							//alert(simpleCart.showlist());
 							//alert(JSON.stringify(simpleCart.sendlist()));
-
-							//save to mongo
-							var cartlist = simpleCart.sendlist();
+							//alert(JSON.stringify(fields));
+							/*var cartlist = simpleCart.sendlist();
 							//for(var i = 0; i < cartlist.length; i++){
 							$.ajax({
 								url: '/savelist',
@@ -1915,7 +1937,7 @@
 								success: function(data){
 									//alert(data);
 								}
-							});
+							});*/
 							//}
 						}
 					}
