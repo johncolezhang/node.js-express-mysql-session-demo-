@@ -3,9 +3,10 @@
   <head>
   <script type="text/javascript" src="javascripts/jquery.min.js"></script>
   <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
-  <script type="text/javascript" src="javascripts/simpleCart.min.js"></script>
+  <script type="text/javascript" src="javascripts/js.cookie.js"></script>
+  <script type="text/javascript" src="javascripts/simpleCart.js"></script>
   <script type="text/javascript" src="javascripts/home.js"></script>
-    <title><%= name %></title>
+    <title><%= title %></title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -16,8 +17,8 @@
   <div class="header">
     <div class="container">
       <div class="login-bars">
-        <a class="btn btn-default log-bar-btn" href="login" role="button" id="home_login"><%= name %></a>
-        <a class="btn btn-default log-bar-btn" href="register" role="button" id="home_register"><%= item %></a>
+        <a class="btn btn-default log-bar-btn" href="login" role="button" id="home_login">登录</a>
+        <a class="btn btn-default log-bar-btn" href="register" role="button" id="home_register">注册</a>
         <div class="cart box_1a">
           <a href="list">
             <h3>
@@ -54,10 +55,10 @@
           <a class="tooltip" title="Green">Green</a>
         </li>
       </ul>
-      <p><a href="/logout">我要注销 </a></p>
     </div>
-    <table class="simpleCart_items"></table>
+
     <a href="list">购物车</a>
+    <!--<a id="show_list">show</div>-->
   </div>
   </div>
 

@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session');
+//var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -17,10 +17,10 @@ var app = express();
 
 
 //set session
-app.use(session({
+/*app.use(session({
 	secret: 'secret',
 	cookie: {maxAge: 1000*60*30}//session30分钟长度
-}));
+}));*/
 
 /*
 app.use(function(req, res, next){

@@ -3,9 +3,10 @@
   <head>
   <script type="text/javascript" src="javascripts/jquery.min.js"></script>
   <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
-  <script type="text/javascript" src="javascripts/simpleCart.min.js"></script>
+  <script type="text/javascript" src="javascripts/js.cookie.js"></script>
+  <script type="text/javascript" src="javascripts/simpleCart.js"></script>
   <script type="text/javascript" src="javascripts/list.js"></script>
-    <title><%= name %></title>
+    <title><%= title %></title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -15,8 +16,8 @@
   <div class="header">
     <div class="container">
       <div class="login-bars">
-        <a class="btn btn-default log-bar-btn" href="login" role="button" id="home_login"><%= name %></a>
-        <a class="btn btn-default log-bar-btn" href="register" role="button" id="home_register"><%= item %></a>
+        <a class="btn btn-default log-bar-btn" href="login" role="button" id="home_login">登录</a>
+        <a class="btn btn-default log-bar-btn" href="register" role="button" id="home_register">注册</a>
         <div class="cart box_1a">
           <a href="list">
             <h3>
@@ -31,8 +32,10 @@
   </div>
 
   <div class="simpleCart_items"></div>
+  <table class="simpleCart_total"></table>
+  <a href="javascript:;" class="simpleCart_empty">清空</a>
+  <button href="javascript:;" id="checkoutlist" class="simpleCart_checkout btn btn-primary btn-block">提交表单</button>
   <a href="home">主页</a>
-  <div class="simpleCart_total"></div>
-  <div class="simpleCart_quantity"></div>
+  
   </body>
 </html>

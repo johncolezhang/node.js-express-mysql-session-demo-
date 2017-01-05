@@ -300,6 +300,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 }
 .content-top {
   padding: 4em 0;
+  overflow: auto;
 }
 .content-top1 {
   padding: 2em 0;
@@ -308,6 +309,8 @@ ul.callbacks_tabs.callbacks1_tabs {
   border: 1px solid #CACACA;
   padding: 1em;
   border-bottom:5px solid #52D0C4;
+  height: 250px;
+  overflow: auto;
 }
 .col-md1:hover {
   border: 1px solid #000;
@@ -1948,10 +1951,23 @@ a.log-bar-btn {
 	padding: 4px 12px;
 	font-weight: 400;
 	font-size: 16px;
-	text-transform: capitalize;
 }
 .login-bars {
 	position: absolute;
 	top: 0%;
 	right: 0%;
+}
+
+.top-bottom {
+	padding: 3em 15px;
+	overflow: auto;
+}
+
+.overflow {
+	overflow: auto;
+}
+
+img.item_image {
+	height: 120px;
+	width: 100px;
 }

@@ -2,7 +2,7 @@
 var mysql = require('mysql');
 var $conf = require('../config/mysql');
 var $sql = require('../model/sqlModel');
-var session = require('express-session');
+//var session = require('express-session');
 
 // 使用连接池，提升性能
 var pool  = mysql.createPool($conf.mysql);
@@ -36,9 +36,10 @@ module.exports = {
           if(result[0] != null) {
             console.log(result[0].user);
             console.log("查询成功");
-            req.session.sign = true;
-            req.session.name = result[0].user;
-            res.json(JSON.stringify(result[0].user));
+            //req.session.sign = true;
+            //req.session.name = result[0].user;
+            console.log(result[0].user);
+            res.json(result[0].user);
             //res.render('home', {content: ujson}); // 第二个参数可以直接在jade中使用
         } else {
           console.log("账号或密码错误");
@@ -67,7 +68,7 @@ module.exports = {
           res.json(false);
         }else{
           connection.query($sql.signupuser, [param.uname, param.upwd], function(err1, result1) {
-            console.log(result1);
+            //console.log(result1);
             res.json(param.uname);
           });
         }
@@ -103,7 +104,7 @@ module.exports = {
           console.log(result[0]);
           console.log(result[1]);
           console.log(result[2]);*/
-          console.log("哈哈哈哈");
+          //console.log("哈哈哈哈");
           res.json(result);
           connection.release();
         });
