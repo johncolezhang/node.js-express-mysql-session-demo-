@@ -81,30 +81,6 @@ module.exports = {
     //console.log(1);
     pool.getConnection( function(err, connection) {
         connection.query($sql.selectproduct, function(err, result) {
-          /*console.log(result.length);
-          console.log(result);
-          //加载div
-          var html = "<div class='content-top'><div class='content-top1'>";
-          for(var i = 0; i < result.length; i++){
-            //处理显示所有的货物的html
-            html += "<div class='col-md-3 col-md2'><div class='col-md1 simpleCart_shelfItem'><a href='#'><img class='img-responsive' src=";
-            html += "'" + result[i].product_path + "'";
-            html += " alt='' /></a><h3 class='item_id item_name'><a href='#'>";
-            html += result[i].product_name;
-            html += "</a></h3><div class='price'><h5 class='item_price'>";
-            html += "$" + result[i].product_price;
-            html += "</h5><a href='#' class='item_add'>Add To Cart</a><div class='clearfix'> </div></div></div></div>";
-            //记录所有的货物
-          }
-          html += "<div class='clearfix'></div></div>";
-
-          
-
-          console.log(html);
-          console.log(result[0]);
-          console.log(result[1]);
-          console.log(result[2]);*/
-          //console.log("哈哈哈哈");
           res.json(result);
           connection.release();
         });

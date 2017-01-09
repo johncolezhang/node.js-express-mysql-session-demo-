@@ -16,6 +16,7 @@
     "html": "*",
   	"mysql": "*",
   	"express-session": "*",
-    "mongodb": "*"
+    "mongodb": "*",
+    "ueditor": "*"
   }
 }
