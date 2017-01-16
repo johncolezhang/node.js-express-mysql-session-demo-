@@ -34,7 +34,7 @@ module.exports = {
     pool.getConnection(function(err, connection) {
         connection.query($sql.selectuser, [param.uname, param.upwd],function(err, result) {
           if(result[0] != null) {
-            console.log(result[0].user);
+            //console.log(result[0].user);
             console.log("查询成功");
             //req.session.sign = true;
             //req.session.name = result[0].user;
@@ -53,7 +53,7 @@ module.exports = {
 
   register: function (req, res, next) {
     var param = req.body;
-    var bool = 0;
+    //var bool = 0;
     console.log(param.uname + " " + param.upwd);
     if(param.uname == "" || param.upwd == ""){
       jsonWrite(res, undefined);
@@ -64,7 +64,7 @@ module.exports = {
     pool.getConnection(function(err, connection) {
       connection.query($sql.existuser, param.uname, function(err, result) {
         console.log(result);
-        if(result == null){
+        if(result instanceof Object){
           res.json(false);
         }else{
           connection.query($sql.signupuser, [param.uname, param.upwd], function(err1, result1) {
@@ -87,7 +87,7 @@ module.exports = {
     });
   },
 
-  list: function (req, res, next) {
+  loginadmin: function (req, res, next) {
     pool.getConnection( function(err, connection) {
       connection.query($sql.selectproduct, function(err, result) {
 

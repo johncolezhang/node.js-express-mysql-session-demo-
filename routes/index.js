@@ -86,8 +86,8 @@ router.post('/savelist', function(req, res, next) {
 });
 
 //上传页面
-router.get('/ueditor', function(req, res) {
+/*router.get('/ueditor', function(req, res) {
 	res.render('ueditor');
-});
+});*/
 
 module.exports = router;

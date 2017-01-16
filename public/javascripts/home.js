@@ -15,7 +15,7 @@ $(function() {
             //alert(productjson);
             //list.push(productjson);
             html += "<div class='col-md-3 col-md2 top-bottom'><div class='col-md1 simpleCart_shelfItem'><a href='#'><img class='img-responsive item_image' src=";
-            html += "'" + data[i].product_path + "'";
+            html += "'" + data[i].product_path1 + "'";
             html += " alt='' /></a>";
             /*html +="<div class='item_image' style='display: none'>";//放置图片
             html += data[i].product_path;//放置图片

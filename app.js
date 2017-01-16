@@ -4,11 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var session = require('express-session');
-
-var ueditor = require('ueditor');
+var session = require('express-session');//session
+var multer = require('multer');//上传
+var ueditor = require('ueditor');//富文本
 var index = require('./routes/index');
-var users = require('./routes/users');
+var admin = require('./routes/admin');
 //var login = require('./views/login.html');
 //var register = require('./views/register.html');
 
@@ -21,11 +21,17 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+//上传文件时，控制大小和数量
+app.use(multer({ 
+         dest: '/tmp/',
+     limits:{fileSize: 10000000,files:4},
+     }).array('image'));
+
 //set session
-/*app.use(session({
+app.use(session({
 	secret: 'secret',
 	cookie: {maxAge: 1000*60*30}//session30分钟长度
-}));*/
+}));
 
 /*
 app.use(function(req, res, next){
@@ -43,10 +49,11 @@ app.use(function(req, res, next){
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //app.engine("html", require("ejs".__express));
-app.engine('html', require('ejs').renderFile);
+//app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 //public为文件路径
 app.use(express.static(path.join(__dirname, 'public')));
+app.engine('html', require('ejs-mate'));
 
 //ueditor插件
 app.use("/ueditor/ue", ueditor(path.join(__dirname, 'public'), function (req, res, next) {
@@ -87,12 +94,7 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);//设置路由
-app.use('/users', users);
-app.use('/login', index);
-app.use('/register', index);
-app.use('/home', index);
-app.use('/logout', index);
-app.use('/ueditor', index);
+app.use('/admin', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

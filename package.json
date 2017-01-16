@@ -17,6 +17,9 @@
   	"mysql": "*",
   	"express-session": "*",
     "mongodb": "*",
-    "ueditor": "*"
+    "ueditor": "*",
+	  "crypto": "*",
+    "ejs-mate": "*",
+    "multer": "*"
   }
 }
