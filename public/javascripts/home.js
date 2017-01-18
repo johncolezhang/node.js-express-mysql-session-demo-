@@ -51,7 +51,7 @@ $(function() {
   //alert(name);
   if(name !== undefined) {//已经有cookie
     $("#home_login").text("欢迎！" + name);
-    $("#home_login").attr("href", "userinfo");
+    $("#home_login").attr("href", "user");
     $("#home_register").text("注销");
     $("#home_register").attr("href", "");
   }

@@ -7,16 +7,13 @@ var MongoDao = require('../dao/MongoDao');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '主页' });
+  res.render('home', { title: '主页' });
 });
 
 router.get('/login', function(req, res, next) {
 	res.render('login', {title: ' 登录'});
 });
 
-router.get('listhandle', function(req, res, next) {
-	userDao.list(req, res, next);
-});
 
 router.get('/list', function(req, res, next){
 //	var ujson = {"name" : "Log In" , "item" : "Sign Up"} ;
@@ -57,6 +54,10 @@ router.get('/home', function(req, res, next){
 //	}
 });
 
+router.get('/user', function(req, res, next){
+	res.render('user', {title: '用户'});
+});
+
 //处理货物
 router.get('/producthandle', function(req, res, next) {
 	//console.log(2);
@@ -65,25 +66,25 @@ router.get('/producthandle', function(req, res, next) {
 
 //处理付款
 router.post('/checkouthandle', function(req, res, next) {
-	console.log("check post");
+	//console.log("check post");
 	checkoutUtil.sendPost(req, res, next);
 });
 
-router.get('/checkouthandle', function(req, res, next) {
-	console.log("check get");
-	checkoutUtil.sendPost(req, res, next);
+router.post('/selectorder', function(req, res, next){
+	MongoDao.selectOrder(req, res, next);
 });
 
 //加载购物车
 router.post('/cartinfo', function(req, res, next) {
 	//console.log(req);
-	MongoDao.selectData(req, res, next);
+	MongoDao.selectCart(req, res, next);
 });
 
 //存储在mongo
 router.post('/savelist', function(req, res, next) {
-	MongoDao.insertData(req, res, next);
+	MongoDao.insertCart(req, res, next);
 });
+
 
 //上传页面
 /*router.get('/ueditor', function(req, res) {

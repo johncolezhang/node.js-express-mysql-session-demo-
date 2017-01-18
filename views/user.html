@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+  <script type="text/javascript" src="javascripts/js.cookie.js"></script>
+  <script type="text/javascript" src="javascripts/simpleCart.js"></script>
+  <script type="text/javascript" src="javascripts/user.js"></script>
+    <title><%= title %></title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	</head>
+
+	<body>
+<!--头导航栏-->
+  <div class="header">
+    <div class="container">
+      <div class="login-bars">
+        <a class="btn btn-default log-bar-btn" href="login" role="button" id="home_login">登录</a>
+        <a class="btn btn-default log-bar-btn" href="register" role="button" id="home_register">注册</a>
+        <div class="cart box_1a">
+          <a href="list">
+            <h3>
+              <div class="total_cart">
+                <span class="simpleCart_total"></span> ( <span id="simpleCart_quantity" class="simpleCart_quantity"></span> ) 
+              </div>
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main" id="main">
+  </div>
+  <a href="home">主页</a>
+
+
+	</body>
+</html>  

@@ -63,8 +63,10 @@ module.exports = {
     //检查是否已注册
     pool.getConnection(function(err, connection) {
       connection.query($sql.existuser, param.uname, function(err, result) {
-        console.log(result);
-        if(result instanceof Object){
+        //console.log(result);
+        //console.log(result[0] instanceof Object);
+        //console.log(result[0].user);
+        if(result[0] instanceof Object){
           res.json(false);
         }else{
           connection.query($sql.signupuser, [param.uname, param.upwd], function(err1, result1) {

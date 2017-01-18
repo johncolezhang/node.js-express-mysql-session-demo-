@@ -351,6 +351,7 @@
 						}
 					});
 					sc_items = newItems;
+					//simpleCart.savemongo();
 					simpleCart.update();
 				},
 
@@ -380,6 +381,7 @@
 				// updating functions
 				update: function () {
 					simpleCart.save();
+					//simpleCart.savemongo();
 					simpleCart.trigger("update");
 				},
 
@@ -452,14 +454,18 @@
 				savemongo: function () {
 					var cartlist = simpleCart.sendlist();
 					//for(var i = 0; i < cartlist.length; i++){
-					$.ajax({
-						url: '/savelist',
-						type: 'post',
-						data: cartlist,
-						success: function(data){
-							//alert(data);
-						}
-					});
+					if(typeof Cookies.get("name") === "undefined"){
+					
+					} else {//登录了就存数据库
+						$.ajax({
+							url: '/savelist',
+							type: 'post',
+							data: cartlist,
+							success: function(data){
+								//alert(data);
+							}
+						});
+					}
 				},
 
 				//send cart list to mongo
@@ -1255,6 +1261,7 @@
 						data['item_name_' + counter]		= item.get('name');
 						data['item_quantity_' + counter]	= item.quantity();
 						data['item_price_' + counter]		= item.price();
+						data['item_image_' + counter]		= item.image();
 
 						// create array of extra options
 						simpleCart.each(item.options(), function (val,x,attr) {
@@ -1272,10 +1279,12 @@
 						data['item_options_' + counter] = options_list.join(", ");
 					});
 
-
+					
 					// check for return and success URLs in the options
 					if (opts.success) {
 						data['return'] = opts.success;
+						simpleCart.empty();
+						simpleCart.savemongo();
 					}
 					if (opts.cancel) {
 						data.cancel_return = opts.cancel;
